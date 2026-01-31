@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QR Code Generator for Institutional Computer Asset Identification and Tracking">
+    <title>Asset QR Code Generator | Institutional Computer Tracking</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="img/chreso-logo.png" alt="Chreso Logo" class="logo-icon">
+                    <h1>Asset QR Generator</h1>
+                </div>
+                <p class="tagline">Institutional Computer Identification & Tracking</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-grid">
+                <!-- Form Section -->
+                <section class="form-section glass-card">
+                    <div class="section-header">
+                        <h2>
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 20h9" />
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                            </svg>
+                            Asset Information
+                        </h2>
+                        <p>Enter computer details to generate QR code</p>
+                    </div>
+
+                    <form id="assetForm" class="asset-form" novalidate>
+                        <!-- Computer Type -->
+                        <div class="form-group">
+                            <label for="computerType">
+                                <span class="label-text">Computer Type</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <select id="computerType" name="computerType" required>
+                                <option value="">Select computer type...</option>
+                                <option value="Desktop">Desktop</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Workstation">Workstation</option>
+                                <option value="Server">Server</option>
+                                <option value="All-in-One">All-in-One</option>
+                                <option value="Mini PC">Mini PC</option>
+                                <option value="Thin Client">Thin Client</option>
+                            </select>
+                            <span class="error-message" id="computerTypeError"></span>
+                        </div>
+
+                        <!-- Institution Name -->
+                        <div class="form-group">
+                            <label for="institutionName">
+                                <span class="label-text">Institution Name</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <input type="text" id="institutionName" name="institutionName"
+                                placeholder="e.g., Chreso University" required maxlength="100">
+                            <span class="error-message" id="institutionNameError"></span>
+                        </div>
+
+                        <!-- Computer Number -->
+                        <div class="form-group">
+                            <label for="computerNumber">
+                                <span class="label-text">Computer Number / Asset Tag</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <input type="text" id="computerNumber" name="computerNumber" placeholder="e.g., Chreso01"
+                                required maxlength="50">
+                            <span class="error-message" id="computerNumberError"></span>
+                        </div>
+
+                        <!-- Serial Number -->
+                        <div class="form-group">
+                            <label for="serialNumber">
+                                <span class="label-text">Computer Serial Number</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <input type="text" id="serialNumber" name="serialNumber" placeholder="e.g., 2234521356992"
+                                required maxlength="50">
+                            <span class="error-message" id="serialNumberError"></span>
+                        </div>
+
+                        <!-- OS Model -->
+                        <div class="form-group">
+                            <label for="osModel">
+                                <span class="label-text">Operating System Model</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <select id="osModel" name="osModel" required>
+                                <option value="">Select operating system...</option>
+                                <optgroup label="Windows">
+                                    <option value="Windows 11 Pro">Windows 11 Pro</option>
+                                    <option value="Windows 11 Home">Windows 11 Home</option>
+                                    <option value="Windows 11 Enterprise">Windows 11 Enterprise</option>
+                                    <option value="Windows 10 Pro">Windows 10 Pro</option>
+                                    <option value="Windows 10 Home">Windows 10 Home</option>
+                                    <option value="Windows 10 Enterprise">Windows 10 Enterprise</option>
+                                    <option value="Windows Server 2022">Windows Server 2022</option>
+                                    <option value="Windows Server 2019">Windows Server 2019</option>
+                                </optgroup>
+                                <optgroup label="Linux">
+                                    <option value="Ubuntu 22.04 LTS">Ubuntu 22.04 LTS</option>
+                                    <option value="Ubuntu 24.04 LTS">Ubuntu 24.04 LTS</option>
+                                    <option value="Debian 12">Debian 12</option>
+                                    <option value="CentOS Stream 9">CentOS Stream 9</option>
+                                    <option value="Fedora 39">Fedora 39</option>
+                                    <option value="Linux Mint 21">Linux Mint 21</option>
+                                </optgroup>
+                                <optgroup label="macOS">
+                                    <option value="macOS Sonoma">macOS Sonoma</option>
+                                    <option value="macOS Ventura">macOS Ventura</option>
+                                    <option value="macOS Monterey">macOS Monterey</option>
+                                </optgroup>
+                                <optgroup label="Other">
+                                    <option value="ChromeOS">ChromeOS</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                            </select>
+                            <span class="error-message" id="osModelError"></span>
+                        </div>
+
+                        <!-- Custom OS Input (shown when "Other" is selected) -->
+                        <div class="form-group hidden" id="customOsGroup">
+                            <label for="customOs">
+                                <span class="label-text">Specify Operating System</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <input type="text" id="customOs" name="customOs" placeholder="Enter custom OS name"
+                                maxlength="50">
+                            <span class="error-message" id="customOsError"></span>
+                        </div>
+
+                        <!-- Asset Status -->
+                        <div class="form-group">
+                            <label for="assetStatus">
+                                <span class="label-text">Asset Status</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <select id="assetStatus" name="assetStatus" required>
+                                <option value="">Select asset status...</option>
+                                <option value="Functional">Functional</option>
+                                <option value="Faulty">Faulty</option>
+                                <option value="Decommissioned">Decommissioned</option>
+                                <option value="Requires Maintenance">Requires Maintenance</option>
+                                <option value="To Be Replaced">To Be Replaced</option>
+                            </select>
+                            <span class="error-message" id="assetStatusError"></span>
+                        </div>
+
+                        <!-- Optional Fields Toggle -->
+                        <div class="optional-toggle">
+                            <button type="button" class="toggle-btn" id="toggleOptional">
+                                <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                                <span>Optional Fields</span>
+                            </button>
+                        </div>
+
+                        <!-- Optional Fields Section -->
+                        <div class="optional-fields hidden" id="optionalFields">
+                            <!-- Timestamp -->
+                            <div class="form-group">
+                                <label for="includeTimestamp">
+                                    <input type="checkbox" id="includeTimestamp" name="includeTimestamp">
+                                    <span class="label-text">Include Generation Timestamp</span>
+                                </label>
+                            </div>
+
+                            <!-- Reference ID -->
+                            <div class="form-group">
+                                <label for="includeRefId">
+                                    <input type="checkbox" id="includeRefId" name="includeRefId">
+                                    <span class="label-text">Include Reference ID</span>
+                                </label>
+                            </div>
+
+                            <!-- Logo Upload -->
+                            <div class="form-group">
+                                <label for="logoUpload">
+                                    <span class="label-text">Institution Logo (Optional)</span>
+                                </label>
+                                <div class="file-upload">
+                                    <input type="file" id="logoUpload" name="logoUpload"
+                                        accept="image/png,image/jpeg,image/svg+xml">
+                                    <span class="file-label">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                            <polyline points="17 8 12 3 7 8" />
+                                            <line x1="12" y1="3" x2="12" y2="15" />
+                                        </svg>
+                                        Choose logo file...
+                                    </span>
+                                </div>
+                                <div class="logo-preview hidden" id="logoPreview">
+                                    <img id="logoPreviewImg" alt="Logo preview">
+                                    <button type="button" id="removeLogo" class="remove-logo-btn">×</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="generateBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                                    <rect x="14" y="14" width="4" height="4" rx="0.5" />
+                                </svg>
+                                Generate QR Code
+                            </button>
+                            <button type="reset" class="btn btn-secondary" id="resetBtn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                    <path d="M3 3v5h5" />
+                                </svg>
+                                Reset Form
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- QR Preview Section -->
+                <section class="preview-section glass-card">
+                    <div class="section-header">
+                        <h2>
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            QR Code Preview
+                        </h2>
+                        <p>Preview and export your generated QR code</p>
+                    </div>
+
+                    <div class="preview-container">
+                        <!-- Empty State -->
+                        <div class="empty-state" id="emptyState">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <rect x="7" y="7" width="3" height="3" />
+                                <rect x="14" y="7" width="3" height="3" />
+                                <rect x="7" y="14" width="3" height="3" />
+                                <path d="M14 14h3v3h-3z" stroke-dasharray="2 1" />
+                            </svg>
+                            <p>Fill in the form and click "Generate QR Code" to create your asset QR</p>
+                        </div>
+
+                        <!-- QR Display -->
+                        <div class="qr-display hidden" id="qrDisplay">
+                            <div class="qr-wrapper" id="qrWrapper">
+                                <div id="qrCode"></div>
+                            </div>
+                            <div class="qr-data" id="qrData">
+                                <h4>Encoded Data:</h4>
+                                <pre id="encodedData"></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Actions -->
+                    <div class="export-actions hidden" id="exportActions">
+                        <button type="button" class="btn btn-export" id="exportPng">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            Export PNG
+                        </button>
+                        <button type="button" class="btn btn-export" id="exportPdf">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                            </svg>
+                            Export PDF
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Bulk Import Section -->
+            <section class="bulk-section glass-card">
+                <div class="section-header">
+                    <h2>
+                        <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <line x1="12" y1="18" x2="12" y2="12" />
+                            <line x1="9" y1="15" x2="15" y2="15" />
+                        </svg>
+                        Bulk Import
+                    </h2>
+                    <p>Generate multiple QR codes from CSV or Excel file</p>
+                </div>
+
+                <div class="bulk-content">
+                    <div class="bulk-upload">
+                        <input type="file" id="csvUpload" accept=".csv,.xlsx,.xls" hidden>
+                        <button type="button" class="btn btn-secondary" id="csvUploadBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
+                            </svg>
+                            Upload CSV/Excel File
+                        </button>
+                        <span class="file-info" id="fileInfo"></span>
+                    </div>
+                    <div class="bulk-template">
+                        <button type="button" class="btn btn-link" id="downloadTemplate">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            Download CSV Template
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bulk Results -->
+                <div class="bulk-results hidden" id="bulkResults">
+                    <div class="bulk-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <span class="progress-text" id="progressText">0 / 0 generated</span>
+                    </div>
+                    <div class="bulk-actions">
+                        <button type="button" class="btn btn-primary" id="exportAllPng">
+                            Export All as PNG (ZIP)
+                        </button>
+                        <button type="button" class="btn btn-primary" id="exportAllPdf">
+                            Export All as PDF
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Asset QR Generator. Built for institutional computer tracking.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/validator.js"></script>
+    <script src="js/qr-generator.js"></script>
+    <script src="js/exporter.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
