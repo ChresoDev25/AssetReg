@@ -108,7 +108,7 @@ const Exporter = (function () {
 
     function downloadTemplate() {
         const headers = ['Computer Type', 'Institution Name', 'Computer Number', 'CPU SID', 'Monitor SID', 'Mouse SID', 'Office Package Type', 'Location', 'OS Model', 'Asset Status'];
-        const example = ['Desktop', 'Chreso University', 'Chreso01', 'CPU-2234521356992', 'MON-1234567890', 'MOU-0987654321', 'Microsoft 365', 'Room 101, Building A', 'Windows 10 Pro', 'Functional'];
+        const example = ['Desktop', 'Chreso University', 'Chreso01', 'CPU-2234521356992', 'MON-1234567890', 'MOU-0987654321', 'Microsoft 365', 'Room 101 Building A', 'Windows 10 Pro', 'Functional'];
         const csv = headers.join(',') + '\n' + example.join(',') + '\n';
 
         const blob = new Blob([csv], { type: 'text/csv' });
