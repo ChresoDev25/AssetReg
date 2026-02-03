@@ -8,7 +8,10 @@ const Validator = (function () {
         computerType: { required: true, message: 'Please select a computer type' },
         institutionName: { required: true, minLength: 2, maxLength: 100, message: 'Institution name is required (2-100 characters)' },
         computerNumber: { required: true, minLength: 1, maxLength: 50, pattern: /^[a-zA-Z0-9\-_]+$/, message: 'Computer number is required (alphanumeric, hyphens, underscores only)' },
-        serialNumber: { required: true, minLength: 1, maxLength: 50, message: 'Serial number is required' },
+        serialNumber: { required: true, minLength: 1, maxLength: 50, message: 'CPU SID is required' },
+        monitorSid: { required: true, minLength: 1, maxLength: 50, message: 'Monitor SID is required' },
+        mouseSid: { required: true, minLength: 1, maxLength: 50, message: 'Mouse SID is required' },
+        officePackageType: { required: true, message: 'Please select an office package type' },
         osModel: { required: true, message: 'Please select an operating system' },
         assetStatus: { required: true, message: 'Please select an asset status' },
         customOs: { required: false, minLength: 2, maxLength: 50, message: 'Please specify the operating system' }
@@ -35,7 +38,7 @@ const Validator = (function () {
     function validateAll(formData) {
         const errors = {};
         let isValid = true;
-        ['computerType', 'institutionName', 'computerNumber', 'serialNumber', 'osModel', 'assetStatus'].forEach(fieldName => {
+        ['computerType', 'institutionName', 'computerNumber', 'serialNumber', 'monitorSid', 'mouseSid', 'officePackageType', 'osModel', 'assetStatus'].forEach(fieldName => {
             const result = validateField(fieldName, formData[fieldName], formData);
             if (!result.valid) { errors[fieldName] = result.message; isValid = false; }
         });

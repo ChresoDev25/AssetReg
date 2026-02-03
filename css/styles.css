@@ -283,6 +283,16 @@ body::before {
     letter-spacing: 0.5px;
 }
 
+.optional-badge {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    background: rgba(156, 163, 175, 0.2);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 /* Input & Select Styles */
 input[type="text"],
 select {

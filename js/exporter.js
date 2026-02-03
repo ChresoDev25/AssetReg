@@ -42,8 +42,13 @@ const Exporter = (function () {
             ['Computer Type:', assetData.computerType],
             ['Institution:', assetData.institutionName],
             ['Computer Number:', assetData.computerNumber],
-            ['Serial Number:', assetData.serialNumber],
-            ['OS Model:', assetData.osModel === 'Other' ? assetData.customOs : assetData.osModel]
+            ['CPU SID:', assetData.serialNumber],
+            ['Monitor SID:', assetData.monitorSid || 'N/A'],
+            ['Mouse SID:', assetData.mouseSid || 'N/A'],
+            ['Office Package:', assetData.officePackageType || 'N/A'],
+            ['Location:', assetData.location || 'N/A'],
+            ['OS Model:', assetData.osModel === 'Other' ? assetData.customOs : assetData.osModel],
+            ['Asset Status:', assetData.assetStatus]
         ];
 
         details.forEach(([label, value]) => {
@@ -102,8 +107,8 @@ const Exporter = (function () {
     }
 
     function downloadTemplate() {
-        const headers = ['Computer Type', 'Institution Name', 'Computer Number', 'Serial Number', 'OS Model'];
-        const example = ['Desktop', 'Chreso University', 'Chreso01', '2234521356992', 'Windows 10 Pro'];
+        const headers = ['Computer Type', 'Institution Name', 'Computer Number', 'CPU SID', 'Monitor SID', 'Mouse SID', 'Office Package Type', 'Location', 'OS Model', 'Asset Status'];
+        const example = ['Desktop', 'Chreso University', 'Chreso01', 'CPU-2234521356992', 'MON-1234567890', 'MOU-0987654321', 'Microsoft 365', 'Room 101, Building A', 'Windows 10 Pro', 'Functional'];
         const csv = headers.join(',') + '\n' + example.join(',') + '\n';
 
         const blob = new Blob([csv], { type: 'text/csv' });

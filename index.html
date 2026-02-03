@@ -84,15 +84,69 @@
                             <span class="error-message" id="computerNumberError"></span>
                         </div>
 
-                        <!-- Serial Number -->
+                        <!-- CPU SID (Serial Number) -->
                         <div class="form-group">
                             <label for="serialNumber">
-                                <span class="label-text">Computer Serial Number</span>
+                                <span class="label-text">CPU SID (Serial Number)</span>
                                 <span class="required-badge">Required</span>
                             </label>
-                            <input type="text" id="serialNumber" name="serialNumber" placeholder="e.g., 2234521356992"
-                                required maxlength="50">
+                            <input type="text" id="serialNumber" name="serialNumber"
+                                placeholder="e.g., CPU-2234521356992" required maxlength="50">
                             <span class="error-message" id="serialNumberError"></span>
+                        </div>
+
+                        <!-- Monitor SID (Serial Number) -->
+                        <div class="form-group">
+                            <label for="monitorSid">
+                                <span class="label-text">Monitor SID (Serial Number)</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <input type="text" id="monitorSid" name="monitorSid" placeholder="e.g., MON-1234567890"
+                                required maxlength="50">
+                            <span class="error-message" id="monitorSidError"></span>
+                        </div>
+
+                        <!-- Mouse SID (Serial Number) -->
+                        <div class="form-group">
+                            <label for="mouseSid">
+                                <span class="label-text">Mouse SID (Serial Number)</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <input type="text" id="mouseSid" name="mouseSid" placeholder="e.g., MOU-0987654321" required
+                                maxlength="50">
+                            <span class="error-message" id="mouseSidError"></span>
+                        </div>
+
+                        <!-- Office Package Type -->
+                        <div class="form-group">
+                            <label for="officePackageType">
+                                <span class="label-text">Office Package Type</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <select id="officePackageType" name="officePackageType" required>
+                                <option value="">Select office package...</option>
+                                <option value="Microsoft 365">Microsoft 365</option>
+                                <option value="Microsoft Office 2021">Microsoft Office 2021</option>
+                                <option value="Microsoft Office 2019">Microsoft Office 2019</option>
+                                <option value="Microsoft Office 2016">Microsoft Office 2016</option>
+                                <option value="LibreOffice">LibreOffice</option>
+                                <option value="Google Workspace">Google Workspace</option>
+                                <option value="WPS Office">WPS Office</option>
+                                <option value="None">None</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="error-message" id="officePackageTypeError"></span>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label for="location">
+                                <span class="label-text">Location</span>
+                                <span class="optional-badge">Optional</span>
+                            </label>
+                            <input type="text" id="location" name="location" placeholder="e.g., Room 101, Building A"
+                                maxlength="100">
+                            <span class="error-message" id="locationError"></span>
                         </div>
 
                         <!-- OS Model -->

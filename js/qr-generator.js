@@ -9,20 +9,25 @@ const QRGenerator = (function () {
     let logoImage = null;
 
     function formatData(data) {
-        let content = `Computer Type: ${data.computerType}\n`;
-        content += `Institution Name: ${data.institutionName}\n`;
-        content += `Computer Number: ${data.computerNumber}\n`;
-        content += `Computer Serial Number: ${data.serialNumber}\n`;
-        content += `OS Model: ${data.osModel === 'Other' ? data.customOs : data.osModel}\n`;
-        content += `Asset Status: ${data.assetStatus}`;
+        // Construct standard JSON payload (Schema v1)
+        const payload = {
+            v: 1,
+            computerType: data.computerType,
+            institutionName: data.institutionName,
+            computerNumber: data.computerNumber,
+            cpuSid: data.serialNumber, // Map Internal -> Schema
+            osModel: data.osModel === 'Other' ? data.customOs : data.osModel,
+            assetStatus: data.assetStatus
+        };
 
-        if (data.includeTimestamp) {
-            content += `\nGenerated: ${new Date().toISOString()}`;
-        }
-        if (data.includeRefId) {
-            content += `\nRef ID: ${generateRefId()}`;
-        }
-        return content;
+        // Add optional fields only if they exist
+        if (data.monitorSid) payload.monitorSid = data.monitorSid;
+        if (data.mouseSid) payload.mouseSid = data.mouseSid;
+        if (data.officePackageType) payload.officePackage = data.officePackageType; // Map Internal -> Schema
+        if (data.location) payload.location = data.location;
+
+        // Return minified JSON string
+        return JSON.stringify(payload);
     }
 
     function generateRefId() {

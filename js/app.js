@@ -111,7 +111,17 @@
     function displayQR(canvas, content) {
         qrCodeContainer.innerHTML = '';
         qrCodeContainer.appendChild(canvas);
-        encodedData.textContent = content;
+
+        // Pretty print JSON for display if possible, otherwise show raw
+        let displayText = content;
+        try {
+            if (content.startsWith('{')) {
+                const jsonObj = JSON.parse(content);
+                displayText = JSON.stringify(jsonObj, null, 2);
+            }
+        } catch (e) { /* ignore */ }
+
+        encodedData.textContent = displayText;
         emptyState.classList.add('hidden');
         qrDisplay.classList.remove('hidden');
         exportActions.classList.remove('hidden');
@@ -163,7 +173,12 @@
                         institutionName: values[1],
                         computerNumber: values[2],
                         serialNumber: values[3],
-                        osModel: values[4]
+                        monitorSid: values[4] || '',
+                        mouseSid: values[5] || '',
+                        officePackageType: values[6] || '',
+                        location: values[7] || '',
+                        osModel: values[8] || '',
+                        assetStatus: values[9] || 'Functional'
                     };
                     const { canvas, content } = QRGenerator.generate(data, { size: 256 });
                     qrCodes.push({ canvas, content, data });
