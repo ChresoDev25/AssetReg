@@ -95,6 +95,17 @@
                             <span class="error-message" id="serialNumberError"></span>
                         </div>
 
+                        <!-- KeyBoard SID (Serial Number) -->
+                        <div class="form-group">
+                            <label for="keyboardSid">
+                                <span class="label-text">KeyBoard SID (Serial Number)</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <input type="text" id="keyboardSid" name="keyboardSid" placeholder="e.g., KBD-9988776655"
+                                required maxlength="50">
+                            <span class="error-message" id="keyboardSidError"></span>
+                        </div>
+
                         <!-- Monitor SID (Serial Number) -->
                         <div class="form-group">
                             <label for="monitorSid">
@@ -214,6 +225,30 @@
                                 <option value="To Be Replaced">To Be Replaced</option>
                             </select>
                             <span class="error-message" id="assetStatusError"></span>
+                        </div>
+
+                        <!-- License Status -->
+                        <div class="form-group">
+                            <label for="licenseStatus">
+                                <span class="label-text">License Status (Activated/Not Activated)</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <select id="licenseStatus" name="licenseStatus" required>
+                                <option value="">Select license status...</option>
+                                <option value="Activated">Activated</option>
+                                <option value="Not Activated">Not Activated</option>
+                            </select>
+                            <span class="error-message" id="licenseStatusError"></span>
+                        </div>
+
+                        <!-- License Activation Date (Conditional) -->
+                        <div class="form-group hidden" id="licenseActivationGroup">
+                            <label for="licenseActivationDate">
+                                <span class="label-text">License Activation Date</span>
+                                <span class="required-badge">Required</span>
+                            </label>
+                            <input type="date" id="licenseActivationDate" name="licenseActivationDate">
+                            <span class="error-message" id="licenseActivationDateError"></span>
                         </div>
 
                         <!-- Optional Fields Toggle -->

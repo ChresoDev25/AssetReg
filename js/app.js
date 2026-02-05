@@ -12,6 +12,8 @@
     const customOsGroup = document.getElementById('customOsGroup');
     const toggleOptionalBtn = document.getElementById('toggleOptional');
     const optionalFields = document.getElementById('optionalFields');
+    const licenseStatusSelect = document.getElementById('licenseStatus');
+    const licenseActivationGroup = document.getElementById('licenseActivationGroup');
     const logoUpload = document.getElementById('logoUpload');
     const logoPreview = document.getElementById('logoPreview');
     const logoPreviewImg = document.getElementById('logoPreviewImg');
@@ -41,6 +43,7 @@
         form.addEventListener('submit', handleSubmit);
         form.addEventListener('reset', handleReset);
         osModelSelect.addEventListener('change', handleOsChange);
+        licenseStatusSelect.addEventListener('change', handleLicenseStatusChange);
         toggleOptionalBtn.addEventListener('click', toggleOptionalFields);
         logoUpload.addEventListener('change', handleLogoUpload);
         removeLogo.addEventListener('click', handleRemoveLogo);
@@ -77,11 +80,16 @@
         QRGenerator.clearLogo();
         logoPreview.classList.add('hidden');
         customOsGroup.classList.add('hidden');
+        licenseActivationGroup.classList.add('hidden');
         hideQR();
     }
 
     function handleOsChange() {
         customOsGroup.classList.toggle('hidden', osModelSelect.value !== 'Other');
+    }
+
+    function handleLicenseStatusChange() {
+        licenseActivationGroup.classList.toggle('hidden', licenseStatusSelect.value !== 'Activated');
     }
 
     function toggleOptionalFields() {
@@ -173,12 +181,15 @@
                         institutionName: values[1],
                         computerNumber: values[2],
                         serialNumber: values[3],
-                        monitorSid: values[4] || '',
-                        mouseSid: values[5] || '',
-                        officePackageType: values[6] || '',
-                        location: values[7] || '',
-                        osModel: values[8] || '',
-                        assetStatus: values[9] || 'Functional'
+                        keyboardSid: values[4] || '',
+                        monitorSid: values[5] || '',
+                        mouseSid: values[6] || '',
+                        officePackageType: values[7] || '',
+                        location: values[8] || '',
+                        osModel: values[9] || '',
+                        assetStatus: values[10] || 'Functional',
+                        licenseStatus: values[11] || '',
+                        licenseActivationDate: values[12] || ''
                     };
                     const { canvas, content } = QRGenerator.generate(data, { size: 256 });
                     qrCodes.push({ canvas, content, data });

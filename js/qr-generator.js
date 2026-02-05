@@ -16,8 +16,10 @@ const QRGenerator = (function () {
             institutionName: data.institutionName,
             computerNumber: data.computerNumber,
             cpuSid: data.serialNumber, // Map Internal -> Schema
+            keyboardSid: data.keyboardSid,
             osModel: data.osModel === 'Other' ? data.customOs : data.osModel,
-            assetStatus: data.assetStatus
+            assetStatus: data.assetStatus,
+            licenseStatus: data.licenseStatus
         };
 
         // Add optional fields only if they exist
@@ -25,6 +27,9 @@ const QRGenerator = (function () {
         if (data.mouseSid) payload.mouseSid = data.mouseSid;
         if (data.officePackageType) payload.officePackage = data.officePackageType; // Map Internal -> Schema
         if (data.location) payload.location = data.location;
+        if (data.licenseStatus === 'Activated' && data.licenseActivationDate) {
+            payload.licenseActivationDate = data.licenseActivationDate;
+        }
 
         // Return minified JSON string
         return JSON.stringify(payload);

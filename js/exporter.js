@@ -43,12 +43,15 @@ const Exporter = (function () {
             ['Institution:', assetData.institutionName],
             ['Computer Number:', assetData.computerNumber],
             ['CPU SID:', assetData.serialNumber],
+            ['KeyBoard SID:', assetData.keyboardSid || 'N/A'],
             ['Monitor SID:', assetData.monitorSid || 'N/A'],
             ['Mouse SID:', assetData.mouseSid || 'N/A'],
             ['Office Package:', assetData.officePackageType || 'N/A'],
             ['Location:', assetData.location || 'N/A'],
             ['OS Model:', assetData.osModel === 'Other' ? assetData.customOs : assetData.osModel],
-            ['Asset Status:', assetData.assetStatus]
+            ['Asset Status:', assetData.assetStatus],
+            ['License Status:', assetData.licenseStatus],
+            ...(assetData.licenseStatus === 'Activated' ? [['Activation Date:', assetData.licenseActivationDate]] : [])
         ];
 
         details.forEach(([label, value]) => {
@@ -107,8 +110,8 @@ const Exporter = (function () {
     }
 
     function downloadTemplate() {
-        const headers = ['Computer Type', 'Institution Name', 'Computer Number', 'CPU SID', 'Monitor SID', 'Mouse SID', 'Office Package Type', 'Location', 'OS Model', 'Asset Status'];
-        const example = ['Desktop', 'Chreso University', 'Chreso01', 'CPU-2234521356992', 'MON-1234567890', 'MOU-0987654321', 'Microsoft 365', 'Room 101 Building A', 'Windows 10 Pro', 'Functional'];
+        const headers = ['Computer Type', 'Institution Name', 'Computer Number', 'CPU SID', 'KeyBoard SID', 'Monitor SID', 'Mouse SID', 'Office Package Type', 'Location', 'OS Model', 'Asset Status', 'License Status', 'License Activation Date'];
+        const example = ['Desktop', 'Chreso University', 'Chreso01', 'CPU-2234521356992', 'KBD-9988776655', 'MON-1234567890', 'MOU-0987654321', 'Microsoft 365', 'Room 101 Building A', 'Windows 10 Pro', 'Functional', 'Activated', '2023-01-15'];
         const csv = headers.join(',') + '\n' + example.join(',') + '\n';
 
         const blob = new Blob([csv], { type: 'text/csv' });
