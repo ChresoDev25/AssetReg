@@ -66,7 +66,8 @@
         }
 
         try {
-            const { canvas, content } = QRGenerator.generate(formData, { size: 300 });
+            // Generate higher resolution QR for print clarity (600px)
+            const { canvas, content } = QRGenerator.generate(formData, { size: 600 });
             displayQR(canvas, content);
             showToast('QR Code generated successfully!', 'success');
         } catch (error) {
@@ -191,7 +192,7 @@
                         licenseStatus: values[11] || '',
                         licenseActivationDate: values[12] || ''
                     };
-                    const { canvas, content } = QRGenerator.generate(data, { size: 256 });
+                    const { canvas, content } = QRGenerator.generate(data, { size: 600 });
                     qrCodes.push({ canvas, content, data });
                 }
             }
