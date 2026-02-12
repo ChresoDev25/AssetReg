@@ -44,8 +44,8 @@ const QRGenerator = (function () {
         const size = options.size || 512; // Increased default size for better resolution
 
         // Create QR using qrcode-generator library
-        // Type 0 = auto, 'M' = Medium error correction (15%) - optimizes density
-        const qr = qrcode(0, 'M');
+        // Type 0 = auto, 'L' = Low error correction (7%) - least dense for better scanning without logo
+        const qr = qrcode(0, 'L');
         qr.addData(content);
         qr.make();
 
@@ -81,22 +81,7 @@ const QRGenerator = (function () {
             }
         }
 
-        // Add logo if provided
-        if (logoImage && options.includeLogo !== false) {
-            // Logo size should be about 20% of the actual QR code area (excluding quiet zone)
-            const qrAreaSize = cellSize * moduleCount;
-            const logoSize = qrAreaSize * 0.2;
 
-            // Center logo in the QR area (taking offset into account)
-            const logoX = offset + ((qrAreaSize - logoSize) / 2);
-            const logoY = offset + ((qrAreaSize - logoSize) / 2);
-
-            // White background for logo
-            ctx.fillStyle = '#FFFFFF';
-            // Add slight padding to logo background
-            ctx.fillRect(logoX - 4, logoY - 4, logoSize + 8, logoSize + 8);
-            ctx.drawImage(logoImage, logoX, logoY, logoSize, logoSize);
-        }
 
         currentQR = { canvas, content, data };
         return { canvas, content };
@@ -115,16 +100,8 @@ const QRGenerator = (function () {
     function getCurrentQR() { return currentQR; }
     function getDataUrl(format = 'image/png') { return currentQR ? currentQR.canvas.toDataURL(format) : null; }
 
-    // Load the default Chreso logo automatically
-    function loadDefaultLogo() {
-        const img = new Image();
-        img.onload = () => { logoImage = img; };
-        img.onerror = () => { console.warn('Default logo not found'); };
-        img.src = 'img/chreso-logo.png';
-    }
-
     // Initialize default logo on load
-    loadDefaultLogo();
+    // loadDefaultLogo(); - Disabled for clean QR codes
 
-    return { generate, formatData, setLogo, clearLogo, getCurrentQR, getDataUrl, loadDefaultLogo };
+    return { generate, formatData, setLogo, clearLogo, getCurrentQR, getDataUrl };
 })();
